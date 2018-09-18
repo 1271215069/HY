@@ -49,7 +49,7 @@ export default {
   },
   created(){
       this.$vux._this = this;
-      window.VUX = this.$vux
+      window.VUX = this.$vux;
   },
   mounted(){
       //滑动返回上一页

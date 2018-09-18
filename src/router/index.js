@@ -19,12 +19,55 @@ export default new Router({
             children: [
                 utils.importVueInit('Home/Home','/Home','首页',{
                     meta:{
-                        menuName:'Home'
+                        navName:'Home'
                     }
                 }),
-                utils.importVueInit('Allvue/About','/About','关于我们',{
+                utils.importVueInit('Hr/index','/Hr','人力资源',{
                     meta:{
-                        right:'',
+                        navName:"Hr"
+                    }
+                }),
+                utils.importVueInit('About/index','/About','公司概况',{
+                    meta:{
+                        navName:"About"
+                    }
+                }),
+                utils.importVueInit('news/index','/news','新闻动态',{
+                    meta:{
+                        navName:"news"
+                    }
+                }),
+                utils.importVueInit('Ndetail/index','/Newsdetails','新闻详情',{
+                    meta:{
+                    }
+                }),
+                utils.importVueInit('Predetail/index','/Predetail','产品详情',{
+                    meta:{
+                    }
+                }),
+                utils.importVueInit('Contact/index','/Contact','联系我们',{
+                    meta:{
+                        navName:"Contact"
+                    }
+                }),
+                utils.importVueInit('Development/index','/Development','发展之路',{
+                    meta:{
+                        navName:"Development"
+                    }
+                }),
+                utils.importVueInit('Technology/index','/Technology','技术力量',{
+                    meta:{
+                        navName:"Technology"
+                    }
+                }),
+                utils.importVueInit('Sales/index','/Sales','销售服务',{
+                    meta:{
+                        navName:"Sales"
+                    }
+                }),
+                utils.importVueInit('product/index','/product','产品世界',{
+                    meta:{
+                        navName:"product"
                     }
                 }),
             ]

@@ -7,51 +7,110 @@
                 </div>
                 <div class="titletext">
                     <h2>乐清市红远电力设备有限公司</h2>
-                    <h3> Yeqing  Hongyuan  Electric  Co., Ltd.</h3>
+                    <h3> Yueqing  Hongyuan  Electric  Co., Ltd.</h3>
                 </div>
                 <div class="tel">
                     <div class="lang"></div>
-                    <p>全国咨询热线：400-8899-321</p>
+                    <p>全国咨询热线：15209885785</p>
                 </div>
                 
             </div>
             <div class="line"></div>
             <div class="navigation">
                 <ul>
-                    <li v-for='(item,index) in nav' :key='index'><span @click.prevent="goturn(item,index)">{{item}}</span></li>
+                    <li v-for='(item,index) in nav' :key='index'><span @click.prevent="goturn(item,index)" :class="{select:(airforce.layout.navName && item.navName && airforce.layout.navName === item.navName)}">{{item.name}}</span></li>
                 </ul>
             </div>
         </div>
+        <!-- <div class="banner" v-if="airforce.layout.navName == navName">
+            <swiper :list="bannerlist" v-model="swiperIndex" height="600px" :auto="true" :loop="true" :threshold="50" :show-desc-mask="false"></swiper>
+            <div class="prev" @click="clickPrev"></div>
+            <div class="next" @click="clickNext"></div>
+        </div> -->
         <div class="banner">
-            <swiper :list="bannerlist" height="600px" :loop='true' :auto='true' :show-dots='false'></swiper>
+            <img class="bannerFind" :src="bannerlist.img" alt="">
         </div>
     </div>
 </template>
 
 <script>
     import { Flexbox, FlexboxItem, XInput, Group, Popover ,Swiper} from  "vux"
-    import { mapGetters, mapActions } from  "vuex"
     export default {
         name: "layout-header",
         components:{ Flexbox, FlexboxItem, XInput, Group, Popover,Swiper },
         data(){
             return {
-                nav:['首页','公司概况','新闻动态','发展之路','技术力量','产品世界','销售服务','人力资源','联系我们'],
-                bannerlist:[{url: 'javascript:',img:'https://ww1.sinaimg.cn/large/663d3650gy1fq66vvsr72j20p00gogo2.jpg'},{url: 'javascript:',img:'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw1k2wj20p00goq7n.jpg'},{url: 'javascript:',img:'https://ww1.sinaimg.cn/large/663d3650gy1fq66vw50iwj20ff0aaaci.jpg'}]
+                nav:[
+                    {name:"首页",router:"/",navName:"Home"},
+                    {name:"公司概况",router:"/About",navName:"About"},
+                    {name:"新闻动态",router:"/news",navName:'news'},
+                    {name:"发展之路",router:"/Development",navName:'Development'},
+                    {name:"技术力量",router:"/Technology",navName:'Technology'},
+                    {name:"产品世界",navName:'product',router:"/product"},
+                    {name:"销售服务",navName:'Sales',router:"/Sales"},
+                    {name:"人力资源",navName:"Hr",router:"/Hr"},
+                    {name:"联系我们",navName:"Contact",router:"/Contact"},
+                ],
+                swiperIndex:0,
+                navName:null,
             }
         },
         computed:{
-            ...mapGetters(['airforce']),
+            bannerlist(){
+                try {
+                    const lunbo_all = JSON.parse(JSON.stringify(this.airforce.lunbo_all.data)).map(e=>{
+                        e.img = e.slide_pic;
+                        e.name = e.slide_name;
+                        e.url = "javascript:;";
+                        return e;
+                    });
+                    const findImg = _.find(lunbo_all,{name:this.airforce.layout.navName});
+                    this.navName =  this.airforce.layout.navName;
+                    if(this.airforce.layout.navName == "Home" ||  !findImg || !findImg.img){
+                        return lunbo_all.filter(e=>e.cid == '1')
+                    }else {
+                        this.navName = null;
+                        return findImg;
+                    }
+                }catch (e){
+                    return [];
+                }
+            }
         },
         methods:{
-            ...mapActions(['action']),
             goturn(t,i){//点击导航跳转的方法
-
+                if(t.router){
+                    this.$router.push(t.router);
+                }
+            },
+            clickPrev(){
+                if(this.swiperIndex == 1){
+                    this.swiperIndex = this.bannerlist.length;
+                    return;
+                }
+                this.swiperIndex -= 1;
+            },
+            clickNext(){
+                if(this.swiperIndex == this.bannerlist.length){
+                    this.swiperIndex = 0;
+                    return;
+                }
+                this.swiperIndex += 1;
             }
-            
         },
         mounted(){
-            
+            this.action({//获取头部轮播
+                moduleName:"lunbo_all",
+                url:"/api/header/lunbo",
+                method:"post",
+                data:{}
+            }).then((res)=>{
+                if(res.code==200){
+                }else {
+                    this.$vux.toast.text(res.message)
+                }
+            }).catch((err)=>{})
+
         }
     }
 </script>
@@ -138,6 +197,12 @@
                     text-align: center;
                     span{
                         cursor: pointer;
+                        &.select{
+                            color: @theme1-color;
+                        }
+                    }
+                    &:hover{
+                        color: @theme1-color*0.9;
                     }
                 }
             }
@@ -145,6 +210,60 @@
     }
     .banner{
         width: 100%;
+        position: relative;
+        .prev{
+            width: 50px;
+            height: 50px;
+            background-color: #ffffff;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 100%;
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-25%);
+            &:before{
+                content: '';
+                position: absolute;
+                left: 13px;
+                top: 16px;
+                width: 20px;
+                height: 2px;
+                border-radius: 1px;
+                transform: rotate(-45deg);
+                background-color: #000;
+            }
+            &:after{
+                content: '';
+                position: absolute;
+                left: 13px;
+                top: 30px;
+                width: 20px;
+                height: 2px;
+                border-radius: 1px;
+                transform: rotate(45deg);
+                background-color: #000;
+            }
+            &:hover{
+                background-color: #ffffff;
+            }
+        }
+        .next{
+            .prev;
+            left: inherit;
+            right: 30px;
+            &:before{
+                transform: rotate(45deg);
+                left: 19px;
+            }
+            &:after{
+                transform: rotate(-45deg);
+                left: 19px;
+            }
+        }
+        .bannerFind{
+            width: 100%;
+            max-height: 600px;
+        }
     }
 }
 .nav-select{

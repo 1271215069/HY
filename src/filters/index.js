@@ -112,6 +112,13 @@ module.exports = {
         }else {
             return '消息';
         }
+    },
+    ClientFastDate(v,t){
+        if(t == 1){
+            return v.slice(v.length - 2);
+        }else {
+            return v.slice(0,v.length - 3);
+        }
     }
 
 }

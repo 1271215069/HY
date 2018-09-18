@@ -7,8 +7,8 @@ const path = require('path')
 module.exports = {
   dev: {
     // rootUrl:'"http://192.168.1.129/zf/"',//测试环境
-    rootUrl:'"http://ai.5yaofq.com/"',//在线地址
-    //rootUrl:'"http://192.168.1.104/zf/"',//王乃晓
+    rootUrl:'"http://www.hongydl.com/"',//在线地址
+    //rootUrl:'"http://192.168.1.104/qiye/"',//王乃晓
     // rootUrl:'"http://www.fq.com/"',//张云山
     //rootUrl:'"http://192.168.1.101/zf/"',
     //rootUrl:'"http://www.zf.com/"',//孔庆蒙
@@ -21,9 +21,9 @@ module.exports = {
 
     // Various Dev Server settings
     // host: 'localhost', // can be overwritten by process.env.HOST
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '192.168.1.106', // can be overwritten by process.env.HOST
     //host: '192.168.1.108', // can be overwritten by process.env.HOST
-    port: 8082, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 8089, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,
@@ -53,7 +53,7 @@ module.exports = {
   },
 
   build: {
-    rootUrl:'"http://ai.5yaofq.com/"',
+    rootUrl:'"http://www.hongydl.com/"',
 
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),

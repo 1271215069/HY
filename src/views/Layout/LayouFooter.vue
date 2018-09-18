@@ -11,21 +11,20 @@
                 <div class="right">
                     <div v-for="(item,index) in footlist" :key="index" class='right-list'>
                         <span>{{item.title}}</span>
-                        <tt v-for="(listitem,listindex) in item.list" :key="listindex">{{listitem.subtitle}}</tt>
+                        <tt v-for="(listitem,listindex) in item.list" @click.prevent="go(listitem)" :key="listindex">{{listitem.subtitle}}</tt>
                     </div>
                     <div class="right-list">
                         <span>联系我们</span>
-                        <tt>电 话：86(123)1234567</tt>
-                        <tt>传 真：86(123)1234567</tt>
-                        <tt>E-mail：www.xxx@xxx.com</tt>
-                        <tt>网 址：http://www.xxxxxx.com</tt>
-                        <tt>地 址：乐清市</tt>
-                        <tt>邮 编：******</tt>
+                        <tt>电 话：15209885785</tt>
+                        <tt>传 真：0577-61713365</tt>
+                        <tt>E-mail：jiaxuehong.com.cn@163.com</tt>
+                        <tt>地 址：浙江温州柳市新民村</tt>
+                        <tt>邮 编：325604</tt>
                     </div>
                 </div>
                 
             </div>
-            <p>Copynight © 2015 纺织新材 All Rights Reserved</p>
+            <p>copyright @ 2018版权所有：乐清市红远电力设备有限公司 浙ICP备18036018</p>
         </div>
     </div>
 </template>
@@ -42,60 +41,46 @@
                     title:"关于我们",
                     list:[{
                         subtitle:"企业简介",
-                        rou:"/Qyjj"
+                        rou:"/About"
                     },
                     {
                         subtitle:"企业文化",
-                        rou:"/Qyjj"
+                        rou:"/About"
                     },
                     {
                         subtitle:"生产实景",
-                        rou:"/Qyjj"
+                        rou:"/About"
                     }]
                 },
                 {
                     title:"产品中心",
                     list:[{
-                        subtitle:"铜鼻子系列",
-                        rou:"/Cpzx"
+                        subtitle:"欧式铜铝接线端子",
+                        rou:"/product"
                     },
                     {
-                        subtitle:"铜接线端子",
-                        rou:"/Cpzx"
+                        subtitle:"美式铜铝端子",
+                        rou:"/product"
                     },
                     {
-                        subtitle:"铝过渡端子",
-                        rou:"/Cpzx"
+                        subtitle:"分支电缆接头",
+                        rou:"/product"
                     },
                     {
-                        subtitle:"开口铜鼻子",
-                        rou:"/Cpzx"
+                        subtitle:"堵油管",
+                        rou:"/product"
                     },
                     {
-                        subtitle:"冷端压子系列",
-                        rou:"/Cpzx"
-                    }]
-                },
-                {
-                    title:"招商加盟",
-                    list:[{
-                        subtitle:"加盟优势",
-                        rou:"/Jmys"
-                    },{
-                        subtitle:"加盟政策",
-                        rou:"/Jmys"
-                    },{
-                        subtitle:"加盟条件",
-                        rou:"/Jmys"
-                    },{
-                        subtitle:"加盟流程",
-                        rou:"/Jmys"
+                        subtitle:"设备线夹",
+                        rou:"/product"
                     }]
                 }]
             }
         },
         methods:{
-            
+            go(i){
+                this.$router.push(i.rou)
+            }
            
         },
         computed:{
@@ -114,7 +99,7 @@
     background-size: cover;
     background-position: center;
     .footer{
-        width: 1200px;
+        width: @public_width;
         margin: 0 auto;
         background: #fff;
         box-sizing: border-box;
